@@ -20,8 +20,8 @@ const HeroCarousel = () => {
             <Carousel
                 showThumbs={false}  // Disables thumbnail navigation
                 autoPlay  // Enables automatic slide transition
-                // infiniteLoop  // Allows carousel to loop infinitely
-                // interval={2000}  // Sets slide interval to 2 seconds
+                infiniteLoop  // Allows carousel to loop infinitely
+                interval={2000}  // Sets slide interval to 2 seconds
                 showArrows={false}  // Hides navigation arrows
                 showStatus={false}  // Hides slide status indicator
             >

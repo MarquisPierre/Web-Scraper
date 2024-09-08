@@ -1,6 +1,7 @@
 "use client"
 
 import { FormEvent, useState } from "react";
+import {scrapeAndStoreProduct} from '@/lib/actions/index'
 
 const isValidAmazonProductURL = (url: string) => {
   try {
@@ -31,6 +32,7 @@ function Searchbar() {
     const isValidLink = isValidAmazonProductURL(searchPrompt);
 
     if(!isValidLink) return alert('Please provide a valid Amazon link')
+    // alert(isValidLink ? 'Valid link' : 'Invalid Link')
 
     try {
       setIsLoading(true);
@@ -65,7 +67,7 @@ function Searchbar() {
         disabled={searchPrompt === ''}
       >
         {isLoading ? 'Searching...' : 'Search'}
-        Search
+       
       </button>
     </form>
   )
@@ -73,7 +75,7 @@ function Searchbar() {
 
 export default Searchbar
 
-function scrapeAndStoreProduct(searchPrompt: string) {
-  throw new Error("Function not implemented.");
-}
+// function scrapeAndStoreProduct(searchPrompt: string) {
+//   throw new Error("Function not implemented.");
+// }
 
