@@ -1,77 +1,103 @@
 import { PriceHistoryItem } from "@/types";
 
-// Extracts and returns the price from a list of possible elements.
-export function extractPrice(...elements: any) {
+/**
+ * Extracts and returns the first found price from a list of possible elements.
+ * @param elements - List of DOM elements that may contain price information.
+ * @returns The extracted price as a string, or an empty string if no valid price is found.
+ */
+export function extractPrice(...elements: any): string {
     for (const element of elements) {
-      const priceText = element.text().trim();
-  
-      if(priceText) {
-        const cleanPrice = priceText.replace(/[^\d.]/g, '');
-  
-        let firstPrice; 
-  
-        if (cleanPrice) {
-          firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
-        } 
-  
-        return firstPrice || cleanPrice;
-      }
+        const priceText = element.text().trim();  // Extract and trim the text content of the element
+        
+        if (priceText) {
+            // Clean the price text by removing non-numeric characters except for decimal points
+            const cleanPrice = priceText.replace(/[^\d.]/g, '');
+            
+            let firstPrice; 
+            
+            if (cleanPrice) {
+                // Try to match a price in the format of digits followed by a decimal point and two digits
+                firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
+            }
+            
+            // Return the first matched price if found, otherwise return the cleaned price
+            return firstPrice || cleanPrice;
+        }
     }
-  
-    return '';
-  }
-  
-  // Extracts and returns the currency symbol from an element.
-  export function extractCurrency(element: any) {
-    const currencyText = element.text().trim().slice(0, 1);
-    return currencyText ? currencyText : "";
-  }
-  
-  // Extracts description from two possible elements from amazon
-  export function extractDescription($: any) {
-    // these are possible elements holding description of the product
+    
+    return '';  // Return an empty string if no price is found
+}
+
+/**
+ * Extracts and returns the currency symbol from a DOM element.
+ * @param element - DOM element containing the currency symbol.
+ * @returns The first character of the element's text content, or an empty string if not found.
+ */
+export function extractCurrency(element: any): string {
+    const currencyText = element.text().trim().slice(0, 1);  // Extract the first character of the text content
+    return currencyText ? currencyText : "";  // Return the currency symbol or an empty string
+}
+
+/**
+ * Extracts and returns the product description from a set of possible DOM elements on Amazon.
+ * @param $ - jQuery or similar DOM manipulation object.
+ * @returns The combined text content of matching elements, or an empty string if no description is found.
+ */
+export function extractDescription($: any): string {
+    // List of possible selectors for elements that may contain product descriptions
     const selectors = [
-      ".a-unordered-list .a-list-item",
-      ".a-expander-content p",
-      // Add more selectors here if needed
+        ".a-unordered-list .a-list-item",  // Selector for unordered list items
+        ".a-expander-content p",           // Selector for expanded content paragraphs
+        // Add more selectors if needed
     ];
-  
+    
     for (const selector of selectors) {
-      const elements = $(selector);
-      if (elements.length > 0) {
-        const textContent = elements
-          .map((_: any, element: any) => $(element).text().trim())
-          .get()
-          .join("\n");
-        return textContent;
-      }
+        const elements = $(selector);  // Find elements matching the selector
+        if (elements.length > 0) {
+            // Map the found elements to their text content, trim whitespace, and join them with newlines
+            const textContent = elements
+                .map((_: any, element: any) => $(element).text().trim())
+                .get()
+                .join("\n");
+            return textContent;
+        }
     }
-  
-    // If no matching elements were found, return an empty string
-    return "";
-  }
-  
-  export function getHighestPrice(priceList: PriceHistoryItem[]) {
-    let highestPrice = priceList[0];
-  
+    
+    return "";  // Return an empty string if no description is found
+}
+
+/**
+ * Finds and returns the highest price from a list of price history items.
+ * @param priceList - Array of PriceHistoryItem objects containing price data.
+ * @returns The highest price found in the price list.
+ */
+export function getHighestPrice(priceList: PriceHistoryItem[]): number {
+    let highestPrice = priceList[0];  // Initialize with the first price item
+    
+    // Iterate over the price list to find the highest price
     for (let i = 0; i < priceList.length; i++) {
-      if (priceList[i].price > highestPrice.price) {
-        highestPrice = priceList[i];
-      }
+        if (priceList[i].price > highestPrice.price) {
+            highestPrice = priceList[i];
+        }
     }
-  
-    return highestPrice.price;
-  }
-  
-  export function getLowestPrice(priceList: PriceHistoryItem[]) {
-    let lowestPrice = priceList[0];
-  
+    
+    return highestPrice.price;  // Return the highest price found
+}
+
+/**
+ * Finds and returns the lowest price from a list of price history items.
+ * @param priceList - Array of PriceHistoryItem objects containing price data.
+ * @returns The lowest price found in the price list.
+ */
+export function getLowestPrice(priceList: PriceHistoryItem[]): number {
+    let lowestPrice = priceList[0];  // Initialize with the first price item
+    
+    // Iterate over the price list to find the lowest price
     for (let i = 0; i < priceList.length; i++) {
-      if (priceList[i].price < lowestPrice.price) {
-        lowestPrice = priceList[i];
-      }
+        if (priceList[i].price < lowestPrice.price) {
+            lowestPrice = priceList[i];
+        }
     }
-  
-    return lowestPrice.price;
-  }
-  
+    
+    return lowestPrice.price;  // Return the lowest price found
+}
