@@ -92,7 +92,7 @@ export async function scrapeAmazonProduct(url: string) {
             averagePrice: Number(currentPrice) || Number(originalPrice),  // Average price is calculated based on available prices
         };
         
-        console.log(data);  // Output the scraped data to the console
+        return data;  // Output the scraped data to the console
     } catch (error: any) {
         // Handle any errors during the scraping process
         throw new Error(`Failed to scrape product: ${error.message}`);

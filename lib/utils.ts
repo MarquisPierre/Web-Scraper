@@ -66,6 +66,8 @@ export function extractDescription($: any): string {
     return "";  // Return an empty string if no description is found
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Finds and returns the highest price from a list of price history items.
  * @param priceList - Array of PriceHistoryItem objects containing price data.
