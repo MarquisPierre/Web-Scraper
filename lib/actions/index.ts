@@ -16,32 +16,32 @@ export async function scrapeAndStoreProduct(productUrl: string) {
   
       if(!scrapedProduct) return;
   
-      // let product = scrapedProduct;
+      let product = scrapedProduct;
   
-      // const existingProduct = await Product.findOne({ url: scrapedProduct.url });
+      const existingProduct = await Product.findOne({ url: scrapedProduct.url });
   
-      // if(existingProduct) {
-      //   const updatedPriceHistory: any = [
-      //     ...existingProduct.priceHistory,
-      //     { price: scrapedProduct.currentPrice }
-      //   ]
+      if(existingProduct) {
+        const updatedPriceHistory: any = [
+          ...existingProduct.priceHistory,
+          { price: scrapedProduct.currentPrice }
+        ]
   
-      //   product = {
-      //     ...scrapedProduct,
-      //     priceHistory: updatedPriceHistory,
-      //     lowestPrice: getLowestPrice(updatedPriceHistory),
-      //     highestPrice: getHighestPrice(updatedPriceHistory),
-      //     averagePrice: getAveragePrice(updatedPriceHistory),
-      //   }
-      // }
+        product = {
+          ...scrapedProduct,
+          priceHistory: updatedPriceHistory,
+          lowestPrice: getLowestPrice(updatedPriceHistory),
+          highestPrice: getHighestPrice(updatedPriceHistory),
+          averagePrice: getAveragePrice(updatedPriceHistory),
+        }
+      }
   
-      // const newProduct = await Product.findOneAndUpdate(
-      //   { url: scrapedProduct.url },
-      //   product,
-      //   { upsert: true, new: true }
-      // );
+      const newProduct = await Product.findOneAndUpdate(
+        { url: scrapedProduct.url },
+        product,
+        { upsert: true, new: true }
+      );
   
-      // revalidatePath(`/products/${newProduct._id}`);
+      revalidatePath(`/products/${newProduct._id}`);
     } catch (error: any) {
       throw new Error(`Failed to create/update product: ${error.message}`)
     }
