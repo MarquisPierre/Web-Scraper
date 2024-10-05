@@ -13,7 +13,7 @@ export const maxDuration = 60; // This function can run for a maximum of 300 sec
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     connectToDB();
 
@@ -49,7 +49,7 @@ export async function GET() {
           {
             url: product.url,
           },
-          product,
+          product
         );
 
         // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
