@@ -19,7 +19,9 @@ const ProductDetails = async ({ params: { id } }: Props) => {
   if(!product) redirect('/')
 
   const similarProducts = await getSimilarProducts(id);
-
+  const handleButtonClick = () => {
+    if(!product) redirect('/') 
+  };
   return (
     <div className="product-container">
       <div className="flex gap-28 xl:flex-row flex-col">
@@ -167,7 +169,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           </div>
         </div>
 
-        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
+        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]" > {/* Turn this into a link to the products orginal page*/}
           <Image 
             src="/assets/icons/bag.svg"
             alt="check"
@@ -175,7 +177,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             height={22}
           />
 
-          <Link href="/" className="text-base text-white">
+          <Link href={product.url} className="text-base text-white">
             Buy Now
           </Link>
         </button>
