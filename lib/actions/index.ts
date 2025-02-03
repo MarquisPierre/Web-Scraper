@@ -66,7 +66,7 @@ export async function getProductById(productId: string) {
 
 export async function getAllProducts() {
   try {
-    connectToDB();
+    await connectToDB();
 
     const products = await Product.find();
 
@@ -78,7 +78,7 @@ export async function getAllProducts() {
 
 export async function getSimilarProducts(productId: string) {
   try {
-    connectToDB();
+    await connectToDB();
 
     const currentProduct = await Product.findById(productId);
 
