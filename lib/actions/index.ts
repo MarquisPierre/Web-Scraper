@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import Product from "../models/product.model";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { User } from "@/types";
-import { generateEmailBody, sendEmail } from "../nodemailer";
+import { generateEmailBody, sendEmail } from "../nodemailer/index";
 // import { generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function scrapeAndStoreProduct(productUrl: string) {

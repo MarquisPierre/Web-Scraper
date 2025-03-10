@@ -94,7 +94,7 @@ const Modal = ({ productId }: Props) => {
                     Never miss a bargain again with our timely alerts!
                   </p>
                 </div>
-
+   {/*THIS IS THE MAIN CODE THAT SENDS THE EMAIL UPDATES*/}
                 <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
                   <label htmlFor="email" className="text-sm font-medium text-gray-700">
                     Email address
@@ -106,7 +106,7 @@ const Modal = ({ productId }: Props) => {
                       width={18}
                       height={18}
                     />
-
+        
                     <input 
                       required
                       type="email"
@@ -123,6 +123,7 @@ const Modal = ({ productId }: Props) => {
                   >
                     {isSubmitting ? 'Submitting...' : 'Track'}
                   </button>
+        {/*////////////////////////////////////////////////////////// */}
                 </form>
               </div>
             </TransitionChild>
