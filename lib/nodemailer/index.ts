@@ -81,15 +81,27 @@ export async function generateEmailBody(
 }
 
 const transporter = nodemailer.createTransport({
-  pool: true,
-  service: 'hotmail',
-  port: 2525,
+  host: "smtp-mail.outlook.com", // Correct SMTP host
+  port: 587, // Recommended port for Outlook
+  secure: false, // Use STARTTLS
   auth: {
-    user: 'marquispierre27@outlook.com',
-    pass: process.env.EMAIL_PASSWORD,
+    type: "OAuth2",
+    user: "marquispierre27@outlook.com",
+    pass: process.env.EMAIL_PASSWORD, // Make sure this is an app password
   },
-  maxConnections: 1
-})
+  tls: {
+    ciphers: "TLSv1.2",
+  },
+});
+
+// Verify SMTP connection
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP Connection Error:", error);
+  } else {
+    console.log("SMTP Server is ready to send emails!");
+  }
+});
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   const mailOptions = {
@@ -104,4 +116,5 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
     
     console.log('Email sent: ', info);
   })
+
 }
