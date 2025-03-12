@@ -88,9 +88,13 @@ const transporter = nodemailer.createTransport({
     type: "OAuth2",
     user: "marquispierre27@outlook.com",
     pass: process.env.EMAIL_PASSWORD, // Make sure this is an app password
+    clientId: "your-client-id",
+    clientSecret: "your-client-secret",
+    refreshToken: "your-refresh-token",
+    accessToken: "your-access-token", // This can be dynamically generated
   },
   tls: {
-    ciphers: "TLSv1.2",
+    ciphers: "SSLv3",
   },
 });
 
