@@ -85,6 +85,7 @@ const transporter = nodemailer.createTransport({
   port: 587, // Recommended port for Outlook
   secure: false, // Use STARTTLS
   auth: {
+    // working on access token
     type: "OAuth2",
     user: "marquispierre27@outlook.com",
     pass: process.env.EMAIL_PASSWORD, // Make sure this is an app password
