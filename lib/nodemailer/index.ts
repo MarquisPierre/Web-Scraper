@@ -86,17 +86,17 @@ const transporter = nodemailer.createTransport({
   secure: false, // Use STARTTLS
   auth: {
     // working on access token
-    type: "OAuth2",
+    // type: "OAuth2",
     user: "marquispierre27@outlook.com",
     pass: process.env.EMAIL_PASSWORD, // Make sure this is an app password
-    clientId: "371d074f-3092-4bd6-8329-d176afc8717b",
-    clientSecret: "bd14fd28-ca18-491f-a8cc-6636abdee656",
-    refreshToken: "your-refresh-token",
-    accessToken: "https://login.microsoftonline.com/common/oauth2/v2.0/token", // This can be dynamically generated
+    // clientId: "371d074f-3092-4bd6-8329-d176afc8717b",
+    // clientSecret: "bd14fd28-ca18-491f-a8cc-6636abdee656",
+    // refreshToken: "your-refresh-token",
+    // accessToken: "https://login.microsoftonline.com/common/oauth2/v2.0/token", // This can be dynamically generated
   },
-  tls: {
-    ciphers: "SSLv3",
-  },
+  // tls: {
+  //   ciphers: "SSLv3",
+  // },
 });
 
 // Verify SMTP connection
