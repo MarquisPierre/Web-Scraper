@@ -98,7 +98,7 @@ const transporter = nodemailer.createTransport({
   //   ciphers: "SSLv3",
   // },
 });
-
+// adding something to powershell
 // Verify SMTP connection
 transporter.verify((error, success) => {
   if (error) {
