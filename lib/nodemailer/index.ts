@@ -81,22 +81,18 @@ export async function generateEmailBody(
 }
 
 const transporter = nodemailer.createTransport({
-  host: "smtp-mail.outlook.com", // Correct SMTP host
-  port: 587, // Recommended port for Outlook
-  secure: false, // Use STARTTLS
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
-    // working on access token
-    // type: "OAuth2",
-    user: "marquispierre27@outlook.com",
-    pass: process.env.EMAIL_PASSWORD, // Make sure this is an app password
-    // clientId: "371d074f-3092-4bd6-8329-d176afc8717b",
-    // clientSecret: "bd14fd28-ca18-491f-a8cc-6636abdee656",
-    // refreshToken: "your-refresh-token",
-    // accessToken: "https://login.microsoftonline.com/common/oauth2/v2.0/token", // This can be dynamically generated
+    type: "OAuth2",
+    user: "marquispierre27@gmail.com",
+    clientId: "000000000000-xxx0.apps.googleusercontent.com",
+    clientSecret: "XxxxxXXxX0xxxxxxxx0XXxX0",
+    refreshToken: "1/XXxXxsss-xxxXXXXXxXxx0XXXxxXXx0x00xxx",
+    accessToken: "ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x",
+    expires: 1484314697598,
   },
-  // tls: {
-  //   ciphers: "SSLv3",
-  // },
 });
 // adding something to powershell
 // Verify SMTP connection
