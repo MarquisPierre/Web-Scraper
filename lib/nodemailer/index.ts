@@ -87,10 +87,10 @@ const transporter = nodemailer.createTransport({
   auth: {
     type: "OAuth2",
     user: "marquispierre27@gmail.com",
-    clientId: "000000000000-xxx0.apps.googleusercontent.com",
-    clientSecret: "XxxxxXXxX0xxxxxxxx0XXxX0",
-    refreshToken: "1/XXxXxsss-xxxXXXXXxXxx0XXXxxXXx0x00xxx",
-    accessToken: "ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x",
+    // clientId: "000000000000-xxx0.apps.googleusercontent.com",
+    // clientSecret: "XxxxxXXxX0xxxxxxxx0XXxX0",
+    // refreshToken: "1/XXxXxsss-xxxXXXXXxXxx0XXXxxXXx0x00xxx",
+    // accessToken: "ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x",
     expires: 1484314697598,
   },
 });
