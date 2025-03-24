@@ -94,8 +94,8 @@ const transporter = nodemailer.createTransport({
     expires: 1484314697598,
   },
 });
-// adding something to powershell
-// Verify SMTP connection
+
+
 transporter.verify((error, success) => {
   if (error) {
     console.error("SMTP Connection Error:", error);
@@ -106,7 +106,7 @@ transporter.verify((error, success) => {
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   const mailOptions = {
-    from: 'marquispierre27@outlook.com',
+    from: 'marquispierre27@gmail.com',
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,
