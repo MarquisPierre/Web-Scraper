@@ -89,7 +89,6 @@ const transporter = nodemailer.createTransport({
     user: "marquispierre27@gmail.com",
     clientId: "Mark_Beef",
     clientSecret: process.env.CLIENT_SECRET ,
-    // refreshToken: "1/XXxXxsss-xxxXXXXXxXxx0XXXxxXXx0x00xxx",
     accessToken: process.env.ACCESS_TOKEN,
     expires: 1484314697598,
   },
