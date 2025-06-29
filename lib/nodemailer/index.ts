@@ -81,61 +81,28 @@ export async function generateEmailBody(
 }
 // Create a test account or replace with real credentials.
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  secure: false, // true for 465, false for other ports
+  service: "gmail",
   auth: {
-    user: "maddison53@ethereal.email",
-    pass: "jn7jnAPss4f63QBp6D",
+    user: "marquispierre27@gmail.com",
+    pass: 'akhvscdsfxmhdayx',
   },
 });
 
-// Wrap in an async IIFE so we can use await.
-(async () => {
-  const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch" <maddison53@ethereal.email>',
-    to: "bar@example.com, baz@example.com",
-    subject: "Hello ✔",
-    text: "Hello world?", // plain‑text body
-    html: "<b>Hello world?</b>", // HTML body
-  });
-
-  console.log("Message sent:", info.messageId);
-})();
-// const transporter = nodemailer.createTransport({
-//   host: "smtp.gmail.com",
-//   port: 465,
-//   secure: true,
-//   auth: {
-//     type: "OAuth2",
-//     user: "marquispierre27@gmail.com",
-//     clientId: "Mark_Beef",
-//     clientSecret: process.env.CLIENT_SECRET ,
-//     // tomorrow for sure fr fr fr fr if i get enough sleep more time now friday in a minute
-//   },
-// });
 
 
-// transporter.verify((error, success) => {
-//   if (error) {
-//     console.error("SMTP Connection Error:", error);
-//   } else {
-//     console.log("SMTP Server is ready to send emails!");
-//   }
-// });
 
-// export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
-//   const mailOptions = {
-//     from: 'marquispierre27@gmail.com',
-//     to: sendTo,
-//     html: emailContent.body,
-//     subject: emailContent.subject,
-//   }
+export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
+  const mailOptions = {
+    from: 'marquispierre27@gmail.com',
+    to: sendTo,
+    html: emailContent.body,
+    subject: emailContent.subject,
+  }
 
-//   transporter.sendMail(mailOptions, (error: any, info: any) => {
-//     if(error) return console.log(error);
+  transporter.sendMail(mailOptions, (error: any, info: any) => {
+    if(error) return console.log(error);
     
-//     console.log('Email sent: ', info);
-//   })
+    console.log('Email sent: ', info);
+  })
 
-// }
+}
