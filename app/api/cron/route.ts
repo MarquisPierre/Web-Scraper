@@ -62,7 +62,8 @@ export async function GET(request: Request) {
           const productInfo = {
             title: updatedProduct.title,
             url: updatedProduct.url,
-            image: updatedProduct.image, 
+            image: updatedProduct.image ?? "https://example.com/placeholder.jpg",
+
           };
           // Construct emailContent
           const emailContent = await generateEmailBody(productInfo, emailNotifType);

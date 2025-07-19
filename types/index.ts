@@ -39,7 +39,7 @@ export type PriceHistoryItem = {
   };
   
   export type EmailProductInfo = {
-    image: string;
+    image: any;
     title: string;
     url: string;
   };
