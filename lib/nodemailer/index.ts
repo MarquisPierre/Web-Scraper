@@ -1,7 +1,9 @@
 "use server"
 
-import { EmailContent, EmailProductInfo, NotificationType } from '@/types';
+import { EmailContent, EmailProductInfo, NotificationType , Product} from '@/types';
 import nodemailer from 'nodemailer';
+import 'dotenv/config'
+
 
 const Notification = {
   WELCOME: 'WELCOME',
@@ -36,7 +38,7 @@ export async function generateEmailBody(
             <h3>${product.title} is back in stock!</h3>
             <p>We're excited to let you know that ${product.title} is now back in stock.</p>
             <p>Don't miss out - <a href="${product.url}" target="_blank" rel="noopener noreferrer">buy it now</a>!</p>
-            <img src="https://i.ibb.co/pwFBRMC/Screenshot-2023-09-26-at-1-47-50-AM.png" alt="Product Image" style="max-width: 100%;" />
+            <img src=${product.image} alt="Product Image" style="max-width: 100%;" />
           </div>
           <p>Stay tuned for more updates on ${product.title} and other products you're tracking.</p>
         </div>
@@ -84,7 +86,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "marquispierre27@gmail.com",
-    pass: process.env.EMAIL_PASSWORD,
+    pass: process.env.GOOGLE_APP_PASSWORD,
   },
 });
 
