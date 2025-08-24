@@ -22,60 +22,65 @@ export async function GET(request: Request) {
     if (!products) throw new Error("No product fetched");
 
     // ======================== 1 SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
-    const updatedProducts = await Promise.all(
-      products.map(async (currentProduct) => {
-        // Scrape product
-        const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
+   const updatedProducts = await Promise.all(
+  products.map(async (currentProduct) => {
+    try {
+      // === 1. SCRAPE PRODUCT ===
+      const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
+      if (!scrapedProduct) {
+        console.warn("No scraped data for:", currentProduct.url);
+        return null;
+      }
 
-        if (!scrapedProduct) return;
+      const updatedPriceHistory = [
+        ...currentProduct.priceHistory,
+        {
+          price: scrapedProduct.currentPrice,
+        },
+      ];
 
-        const updatedPriceHistory = [
-          ...currentProduct.priceHistory,
-          {
-            price: scrapedProduct.currentPrice,
-          },
-        ];
+      const product = {
+        ...scrapedProduct,
+        priceHistory: updatedPriceHistory,
+        lowestPrice: getLowestPrice(updatedPriceHistory),
+        highestPrice: getHighestPrice(updatedPriceHistory),
+        averagePrice: getAveragePrice(updatedPriceHistory),
+      };
 
-        const product = {
-          ...scrapedProduct,
-          priceHistory: updatedPriceHistory,
-          lowestPrice: getLowestPrice(updatedPriceHistory),
-          highestPrice: getHighestPrice(updatedPriceHistory),
-          averagePrice: getAveragePrice(updatedPriceHistory),
+      // === 2. UPDATE PRODUCT IN DB ===
+      const updatedProduct = await Product.findOneAndUpdate(
+        { url: product.url },
+        product,
+        { new: true } // <- Return the updated doc
+      );
+
+      // === 3. CHECK NOTIF CONDITIONS ===
+      const emailNotifType = getEmailNotifType(scrapedProduct, currentProduct);
+
+      if (emailNotifType && updatedProduct?.users.length > 0) {
+        const productInfo = {
+          title: updatedProduct.title,
+          url: updatedProduct.url,
         };
 
-        // Update Products in DB
-        const updatedProduct = await Product.findOneAndUpdate(
-          {
-            url: product.url,
-          },
-          product
-        );
-
-        // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
-        const emailNotifType = getEmailNotifType(
-          scrapedProduct,
-          currentProduct
-        );
-
-        if (emailNotifType && updatedProduct.users.length > 0) {
-          const productInfo = {
-            title: updatedProduct.title,
-            url: updatedProduct.url,
-            
-
-          };
-          // Construct emailContent
+        // === 4. GENERATE EMAIL + SEND ===
+        try {
           const emailContent = await generateEmailBody(productInfo, emailNotifType);
-          // Get array of user emails
           const userEmails = updatedProduct.users.map((user: any) => user.email);
-          // Send email notification
           await sendEmail(emailContent, userEmails);
+        } catch (emailErr) {
+          console.error("Email sending error for:", updatedProduct.url, emailErr);
         }
+      }
 
-        return updatedProduct;
-      })
-    );
+      return updatedProduct;
+    } catch (scrapeOrDBErr) {
+      console.error("Product scrape/update error for:", currentProduct.url, scrapeOrDBErr);
+      return null; // continue to next product
+    }
+  })
+);
+
 
     return NextResponse.json({
       message: "Ok",
