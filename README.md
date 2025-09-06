@@ -45,18 +45,33 @@ cp .env.example .env.local
 npm run dev
 
 MONGODB_URI=your_mongodb_connection_string
-BRIGHT_DATA_API_KEY=your_brightdata_api_key
+BRIGHT_DATA_USERNAME=your_brightdata_api_key
+BRIGHT_DATA_PASSWORD=your_brightdata_password
 GOOGLE_APP_PASSWORD=your_gmail_app_password
-EMAIL_USER=your_email
-EMAIL_FROM=your_email
 
 
 .
-├── components/       # UI components
-├── lib/              # Utility functions
-├── pages/            # Next.js pages
-├── styles/           # Global styles
-├── scripts/          # Scraping scripts
-└── ...
+├── app/          # Main application logic
+├── components/   # Reusable UI components
+├── lib/          # Utility functions and services
+├── public/       # Static assets
+├── types/        # TypeScript types
+├── .env          # Environment variables
+├── .gitignore    # Git ignore file
+├── README.md     # Project documentation
+├── next.config.mjs # Next.js configuration
+├── package.json  # Project metadata and dependencies
+├── postcss.config.mjs # PostCSS configuration
+├── tailwind.config.ts  # Tailwind CSS configuration
+├── tsconfig.json     # TypeScript configuration
+
 
 ---
+```
+##📧 Contact
+  For questions or feedback, feel free to reach out:
+   - Email: marquispierre27@gmail.com 
+   - Linkedin: www.linkedin.com/in/marquis-pierre-263367183
+   
+
+
