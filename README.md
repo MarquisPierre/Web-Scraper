@@ -68,8 +68,7 @@ GOOGLE_APP_PASSWORD=your_gmail_app_password
 
 ---
 ```
-📧 Contact me for questions or feedback:
-  For questions or feedback, feel free to reach out:
+📧For questions or feedback, feel free to reach out
    - Email: marquispierre27@gmail.com 
    - Linkedin: www.linkedin.com/in/marquis-pierre-263367183
    
