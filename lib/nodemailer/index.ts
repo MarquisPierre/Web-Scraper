@@ -88,6 +88,7 @@ const transporter = nodemailer.createTransport({
     user: "marquispierre27@gmail.com",
     pass: process.env.GOOGLE_APP_PASSWORD,
   },
+  secure: true
 });
 
 
@@ -101,10 +102,19 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
     subject: emailContent.subject,
   }
 
-  transporter.sendMail(mailOptions, (error: any, info: any) => {
-    if(error) return console.log(error);
+  // transporter.sendMail(mailOptions, (error: any, info: any) => {
+  //   if(error) return console.log(error);
     
-    console.log('Email sent: ', info);
-  })
+  //   console.log('Email sent: ', info);
+  // })
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent:", info.messageId);
+    return info;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
+  }
 
 }
