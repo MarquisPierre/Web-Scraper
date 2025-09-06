@@ -1,6 +1,6 @@
 # 🕸️ Web Scraper Project  
 
-A modern web scraping application built with **Next.js** and powered by **Bright Data** for scalable scraping. It extracts and processes structured data using **Cheerio**, stores it in **MongoDB**, and includes email notifications via **Nodemailer**. The UI is built with **Headless UI** and **Tailwind CSS** for a clean and responsive design.  
+A modern web scraping application (Specifically for Amazon.com) built with **Next.js** and powered by **Bright Data** for scalable scraping. It extracts and processes structured data using **Cheerio**, stores it in **MongoDB**, and includes email notifications via **Nodemailer**. The UI is built with **Headless UI** and **Tailwind CSS** for a clean and responsive design.  
 
 ---
 
